@@ -1,11 +1,20 @@
 // **Thought**:
 const { Schema, model } = require('mongoose');
 
+const formatDate = (date) => {
+  const d = date.getDate();
+  const m = date.getMonth()+1;
+  const y = date.getFullYear();
+  const h = date.getHours();
+  const min = date.getMinutes()
+  return `${m}/${d}/${y} ${h}:${min}`
+}
+
+
 const reactionSchema = new Schema (
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      /* TODO look into default objectid */
     },
     reactionBody: {
       type: String,
@@ -19,12 +28,13 @@ const reactionSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now(),
-      /* TODO getter method to format the timestamp on query */
+      get: formatDate
     }
   },
   {
     toJSON: {
       virtuals: true,
+      getters: true
     },
     id: false,
   }
@@ -41,18 +51,18 @@ const thoughtSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now(),
-      /* TODO use a getter method to format the timestamp on query */
+      get: formatDate
     },
     username: {
       type: String,
       required: true,
-      /* TODO could need more */
     },
     reactions: [reactionSchema],
   },
   {
     toJSON: {
       virtuals: true,
+      getters: true
     },
     id: false,
   }
