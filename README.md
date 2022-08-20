@@ -1,6 +1,12 @@
 # Social Network API
 
   ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+
+
+  Please, watch the walkthrough video below to learn how to use the app and see it's capabilities:
+
+  https://drive.google.com/file/d/1GcoewKOFCcX8asPFGbyij0r7RtzcKnwN/view?usp=sharing
   
   ## Description
   
