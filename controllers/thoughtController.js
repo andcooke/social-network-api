@@ -75,7 +75,6 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  
 
   // POST to create a reaction stored in a single thought's reactions array field
 
