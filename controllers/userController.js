@@ -50,10 +50,12 @@ module.exports = {
 // **BONUS**: Remove a user's associated thoughts when deleted.
   deleteUser(req, res) {
     User.findOneAndDelete ({ _id: req.params.userId})
-      .then((user) => 
-        !user
-          ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user) 
+      .then((user) => {
+        if (!user) {
+          res.status(404).json({ message: 'No user with that ID' })
+        }
+        return;
+      } 
       )
       .then(()=> res.json ({ message: 'User deleted!' }))
       .catch((err) => res.status(500).json(err));
