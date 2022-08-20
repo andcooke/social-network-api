@@ -14,6 +14,7 @@ module.exports = {
   getSingleUser(req, res) {
     User.findOne({_id: req.params.userId})
       .select('-__v')
+      .populate('thoughts')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -28,15 +29,6 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-
-
-// ```json
-// // example data
-// {
-//   "username": "lernantino",
-//   "email": "lernantino@gmail.com"
-// }
-// ```
 
 
 // * `PUT` to update a user by its `_id`
