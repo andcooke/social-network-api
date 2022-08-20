@@ -1,4 +1,5 @@
 const { User, Thought } = require('../models');
+const ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = {
@@ -59,10 +60,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
     
-
   //delete a thought
-
-
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) => {
@@ -75,10 +73,43 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-
   // POST to create a reaction stored in a single thought's reactions array field
+  createReaction(req, res) {
+    Thought.findOneAndUpdate (
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body}},
+      { runValidators: true, new: true}
+    )
+    .then((user) => 
+      !user
+        ? res
+          .status(404)
+          .json({ message: 'Reaction created, but no post with this ID'})
+        : res.json({ message: 'Reaction added!' })  
+    )
+    .catch((err) => {
+      console.error(err)
+    })
+  },
 
   //`DELETE` to pull and remove a reaction by the reaction's `reactionId` value
+  deleteReaction(req, res) {
+    Thought.findOneAndUpdate (
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { _id: ObjectId(req.params.reactionId) }}},
+      { new: true}
+    )
+    .then((user) => 
+      !user
+        ? res
+          .status(404)
+          .json({ message: 'Reaction removed, but no post with this ID'})
+        : res.json({ message: 'Reaction removed!' })  
+    )
+    .catch((err) => {
+      console.error(err)
+    })
+  }
 }
 
 

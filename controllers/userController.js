@@ -58,8 +58,6 @@ module.exports = {
       .then(()=> res.json ({ message: 'User deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
-
-
   // !course
   // ? res.status(404).json({ message: 'No course with that ID' })
   // : Student.deleteMany({ _id: { $in: course.students } })
