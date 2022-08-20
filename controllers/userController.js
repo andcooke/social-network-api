@@ -60,11 +60,33 @@ module.exports = {
   },
 
 
-
+  // !course
+  // ? res.status(404).json({ message: 'No course with that ID' })
+  // : Student.deleteMany({ _id: { $in: course.students } })
 
 
 // * `POST` to add a new friend to a user's friend list
+  addFriend(req, res) {
+    User.findOneAndUpdate (
+      { _id: req.params.userId },
+      { $push: { friends: req.params.friendId}},
+      { new: true}
+    )
+    .then((user) => 
+      !user
+        ? res
+          .status(404)
+          .json({ message: 'Friend created, but no user with this ID'})
+        : res.json({ message: 'Friend added!' })  
+    )
+    .catch((err) => {
+      console.error(err)
+    })
+  },
 
 // * `DELETE` to remove a friend from a user's friend list
+  removeFriend(req, res) {
+
+  }
 }
 

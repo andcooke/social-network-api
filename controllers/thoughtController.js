@@ -62,9 +62,6 @@ module.exports = {
 
   //delete a thought
 
-  // !course
-  // ? res.status(404).json({ message: 'No course with that ID' })
-  // : Student.deleteMany({ _id: { $in: course.students } })
 
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
@@ -79,6 +76,7 @@ module.exports = {
   },
 
   
+
   // POST to create a reaction stored in a single thought's reactions array field
 
   //`DELETE` to pull and remove a reaction by the reaction's `reactionId` value
