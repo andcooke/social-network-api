@@ -1,0 +1,1 @@
+// reaction schema within thought model
